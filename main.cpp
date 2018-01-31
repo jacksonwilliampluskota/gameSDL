@@ -99,4 +99,8 @@ int main(int argc, char **argv)
   return 0;
 }
 
+// sudo apt-get install libsdl2-dev
+//sudo apt-get install libsdl2-image-dev libsdl2-mixer-dev libsdl-ttf-2.0-dev
+//sudo apt-get install libsdl2-image-dev libsdl2-mixer-dev
+//sudo apt-get install libsdl-ttf2.0-dev
 //g++ main.cpp -std=gnu++0x -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -o build/cyborg
