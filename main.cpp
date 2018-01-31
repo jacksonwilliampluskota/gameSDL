@@ -98,3 +98,5 @@ int main(int argc, char **argv)
 
   return 0;
 }
+
+//g++ main.cpp -std=gnu++0x -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -o build/cyborg
