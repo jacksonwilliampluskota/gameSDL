@@ -1,16 +1,13 @@
 #include "Sources/cleanup.cpp"
 #include "Sources/res_path.cpp"
 #include "Sources/drawing_functions.cpp"
+#include "Sources/globals.cpp"
 #include "SDL2/SDL_mixer.h"
-
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 352;
 
 int main(int argc, char **argv)
 {
   //Variavel para iniciar Window
   SDL_Window *window;
-  SDL_Renderer *renderer;
   SDL_Texture* texture;
 
   //Iniciar SDL
@@ -22,8 +19,8 @@ int main(int argc, char **argv)
 
   //Iniciar janela
   window = SDL_CreateWindow("Cyborg battle", SDL_WINDOWPOS_CENTERED,
-                            SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,
-                            SCREEN_HEIGHT, SDL_WINDOW_SHOWN);//SDL_WINDOW_SHOWN | SLD_WINDOW_FULLSCREEN
+                            SDL_WINDOWPOS_CENTERED, Globals::ScreenWidth*Globals::ScreenScale,
+                            Globals::ScreenHeight*Globals::ScreenScale, SDL_WINDOW_SHOWN);//SDL_WINDOW_SHOWN | SLD_WINDOW_FULLSCREEN
 
   if(window == nullptr)
   {
@@ -32,10 +29,10 @@ int main(int argc, char **argv)
     return 1;
   }
 
-  //Iniciar Render
-  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+  //a variavel renderr vem do objeto global ja tipada com SDL_Rendere e iniada com  NULL aqui só estamos criando o  render
+  Globals::renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-  if(renderer == nullptr)
+  if(Globals::renderer == nullptr)
   {
     SDL_Quit();
     cleanup(window);//Classe que chama a função destroi do objeto que for adicionado por exemplo window, surface ou render.
@@ -44,7 +41,7 @@ int main(int argc, char **argv)
   }
 
   //Esse é o tamanho pra desenhar as coisas, antes nos escalamos ele pra o tamanho da tela escrito in createWindow
-  SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+  SDL_RenderSetLogicalSize(Globals::renderer, Globals::ScreenWidth, Globals::ScreenHeight);
 
   //iniciado imagens
   if( ( IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG ) != IMG_INIT_PNG )
@@ -75,22 +72,22 @@ int main(int argc, char **argv)
   //caregar texturar para desenhar
   string resPath = getResourcePath();
 
-  texture = loadTexture(resPath + "map.png", renderer);
+  texture = loadTexture(resPath + "map.png", Globals::renderer);
 
   //rodar o game por 5000 ticks (5000ms)
   while(SDL_GetTicks() < 5000)
   {
     //limpa a tela a cada loop
-    SDL_RenderClear(renderer);
+    SDL_RenderClear(Globals::renderer);
 
     //desenha na tela
-    renderTexture(texture, renderer, 0, 0);
+    renderTexture(texture, Globals::renderer, 0, 0);
 
     //mostrar imagem que estamos renderizando
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(Globals::renderer);
   }
 
-  cleanup(renderer);
+  cleanup(Globals::renderer);
   cleanup(window);
   cleanup(texture);
 

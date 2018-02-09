@@ -2,6 +2,8 @@
   "files.associations": {
     "iostream": "cpp",
     "*.tcc": "cpp",
-    "utility": "cpp"
+    "utility": "cpp",
+    "initializer_list": "cpp",
+    "iosfwd": "cpp"
   }
 }
