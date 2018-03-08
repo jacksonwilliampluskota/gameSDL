@@ -55,6 +55,9 @@ class Entity {
     static bool checkCollision(SDL_Rect cbox1m, SDL_Rect cbox2);
     static int angleToDirection(float angle);
     static float angleBetweenTwoPoints(float cx1, float cy1, float cx2, float cy2);
+    static float angleBetweenTwoRects(SDL_Rect &r1, SDL_Rect &r2);
+
+    static list<Entity*> entities;
 
 };
 #endif
