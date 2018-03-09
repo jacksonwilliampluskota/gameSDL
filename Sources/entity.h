@@ -57,7 +57,11 @@ class Entity {
     static float angleBetweenTwoPoints(float cx1, float cy1, float cx2, float cy2);
     static float angleBetweenTwoRects(SDL_Rect &r1, SDL_Rect &r2);
 
+    //uma  gobla de entidades que podem ser referenciadas aqualquer hora
     static list<Entity*> entities;
+    static bool EntityCompare(const Entity* const &a, const Entity* const &b);
+    static void removeInactiveEntitiesFromList(list<Entity*> *entityList, bool deleteEntities);
+    static void  removeFromAllList(list<Entity*> *entityList, bool deleteEntities);
 
 };
 #endif
